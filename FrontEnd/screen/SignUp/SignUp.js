@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native';
 import styles from './style';
 
 const SignUp = () => {
@@ -8,7 +8,7 @@ const [password, setPassword] = useState();
 const [confirmPassword, setConfirmPassword] = useState();
 
     return(
-        <View style={styles.pageContainer}>
+        <KeyboardAvoidingView style={styles.pageContainer} behavior='height'>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>Sign Up</Text>
             </View>
@@ -39,7 +39,7 @@ const [confirmPassword, setConfirmPassword] = useState();
             </TouchableOpacity>
             </View>
             
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 

@@ -13,15 +13,15 @@ const styles = StyleSheet.create({
     },
 
     pageContainer : {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#FFFFFF', 
         height: "100%",
+        // flex: 1,
         width: "100%",
     },
 
     titleContainer:{
-        marginTop: "30%",
-        marginBottom: 10,
-        
+        paddingTop: "30%",
+        paddingBottom: SIZES.xSmall,
     },
 
     title:{
