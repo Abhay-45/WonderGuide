@@ -21,3 +21,8 @@ If not working, then
 ```sh
 expo-cli start --tunnel
 ```
+
+To run on web
+```sh
+npx expo start --web
+```

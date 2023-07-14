@@ -2,10 +2,48 @@ import { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Image, ScrollView, Button } from 'react-native';
 import styles from './style';
 
-const SignUp = ({navigation}) => {
+const SignUp = ({ navigation }) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
+    const [errorMessage, setErrorMessage] = useState(false);
+    const [registerFailed, setRegisterFailed] = useState(false);
+
+
+    const handleSubmit = async ({email, password, confirmPassword}) => {
+        console.log("inhandlesubmit")
+        try {
+            let response = await fetch(
+                "http://127.0.0.1:5000/register",
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    }),
+                }
+            )
+
+            let json = await response.json()
+
+            if (json["status"] === "success") {
+                console.log("Registration Successful");
+                setErrorMessage(false);
+                setRegisterFailed(false);
+                navigation.navigate("SignIn");
+            } else {
+                console.log("Registration Failed");
+                setErrorMessage(true);
+                setRegisterFailed(true);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <View style={styles.pageWrapper}>
@@ -41,7 +79,7 @@ const SignUp = ({navigation}) => {
                             secureTextEntry={true}
                             placeholder='Confirm Password'
                         />
-                        <TouchableOpacity style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => handleSubmit({email,password, confirmPassword})} >
                             <Text style={styles.buttonText}>Sign Up</Text>
                         </TouchableOpacity>
 
@@ -50,11 +88,11 @@ const SignUp = ({navigation}) => {
                         <Text style={styles.footerText}>
                             Already have an account?
                         </Text>
-                        <TouchableOpacity 
-                        style={styles.footerRouteText}
-                        onPress={() => navigation.navigate("SignIn")}>
+                        <TouchableOpacity
+                            style={styles.footerRouteText}
+                            onPress={() => navigation.navigate("SignIn")}>
                             <Text style={styles.footerRouteText}>Sign In</Text>
-                        </TouchableOpacity> 
+                        </TouchableOpacity>
 
                     </View>
 
