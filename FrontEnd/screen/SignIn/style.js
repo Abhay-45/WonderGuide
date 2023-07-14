@@ -3,7 +3,7 @@ import { COLORS, SIZES } from "../../constants/theme";
 
 const styles = StyleSheet.create({
     pageContainer: {
-        backgroundColor: COLORS.white,
+        
         flex: 1,
         justifyContent: "center",
     },
@@ -18,14 +18,13 @@ const styles = StyleSheet.create({
         // margin: SIZES.small,
         marginHorizontal: SIZES.xxLarge,
         marginVertical: SIZES.medium
-
-        
     },
 
     pageWrapper: {
         justifyContent: "center",
         width: "100%",
-        height: "100%"
+        height: "100%",
+        backgroundColor: COLORS.white,
     },
     logoContainer:{
         justifyContent: "center",
