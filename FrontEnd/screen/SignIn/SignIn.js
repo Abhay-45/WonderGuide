@@ -6,6 +6,38 @@ const SignIn = ({ navigation }) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    const handleSubmit = async ({email, password}) => {
+        try {
+            let response = await fetch(
+                "http://127.0.0.1:5000/login",
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                    }),
+                }
+            );
+
+            let json = await response.json();
+
+            if(json["status"] ==="success"){
+                console.log("Login Successful");
+                navigation.navigate("Home");
+            }
+            else{
+                console.log("Login Failed");
+                alert(`Invalid Email or Password`);
+            }
+        } catch (error){
+            console.error(error);
+        }
+    }
+
     return (
         <View style={styles.pageWrapper}>
             <ScrollView>
@@ -35,7 +67,7 @@ const SignIn = ({ navigation }) => {
                             secureTextEntry={true}
                             placeholder='Password'
                         />
-                        <TouchableOpacity style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => handleSubmit({email,password})}>
                             <Text style={styles.buttonText}>Sign In</Text>
                         </TouchableOpacity>
 

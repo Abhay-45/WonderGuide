@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Image, ScrollView, Button } from 'react-native';
+import { 
+    View, 
+    Text, 
+    TouchableOpacity, 
+    TextInput, 
+    KeyboardAvoidingView, 
+    Image, 
+    ScrollView, 
+    Button } from 'react-native';
+import * as Yup from 'yup';
 import styles from './style';
 
 const SignUp = ({ navigation }) => {
@@ -9,9 +18,21 @@ const SignUp = ({ navigation }) => {
     const [errorMessage, setErrorMessage] = useState(false);
     const [registerFailed, setRegisterFailed] = useState(false);
 
+    // const validationSchema = Yup.object().shape({
+    //     email: Yup.string().email('Invalid email').required('Email is required'),
+    //     password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    //     confirmPassword: Yup.string()
+    //       .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    //       .required('Confirm Password is required'),
+    //   });
+
 
     const handleSubmit = async ({email, password, confirmPassword}) => {
-        console.log("inhandlesubmit")
+        // console.log("inhandlesubmit")
+        // const isValidUser = validationSchema.validate({email, password, confirmPassword})
+        // console.log(isValidUser)
+        // console.log(isValidUser["PromiseState"])
+
         try {
             let response = await fetch(
                 "http://127.0.0.1:5000/register",

@@ -1,7 +1,7 @@
 import {View, Text} from 'react-native';
 import { COLORS, SIZES } from '../../constants/theme';
 
-const Home = ()=>{
+const HomePage = (navigation)=>{
     return(
         <View>
             <Text>Home</Text>
@@ -9,4 +9,4 @@ const Home = ()=>{
     )
 }
 
-export default Home;
+export default HomePage;
