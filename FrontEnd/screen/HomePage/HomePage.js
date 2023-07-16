@@ -3,6 +3,7 @@ import { COLORS, SIZES } from '../../constants/theme';
 
 const HomePage = (navigation)=>{
     return(
+       
         <View>
             <Text>Home</Text>
         </View>

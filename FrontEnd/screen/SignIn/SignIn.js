@@ -27,7 +27,7 @@ const SignIn = ({ navigation }) => {
 
             if(json["status"] ==="success"){
                 console.log("Login Successful");
-                navigation.navigate("Home");
+                navigation.navigate("TabNavigator");
             }
             else{
                 console.log("Login Failed");
