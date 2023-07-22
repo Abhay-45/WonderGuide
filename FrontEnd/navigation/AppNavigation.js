@@ -1,6 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomePage from '../screen/HomePage/HomePage';
 import CameraPage from '../screen/CameraPage/CameraPage';
+import CameraImageNavigation from './CameraImageNavigation';
+import { Image, StyleSheet, View } from 'react-native';
 
 import { FontAwesome } from '@expo/vector-icons'
 import { COLORS } from '../constants/theme';
@@ -9,44 +11,55 @@ import React from 'react';
 const Tab = createBottomTabNavigator();
 
 const AppNavigation = () => {
-  return (
-    <Tab.Navigator
+    return (
+        <Tab.Navigator
             screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused, color, size }) => {
-                    let iconName;
-                    if (route.name === 'HomePage') {
-                        iconName = focused ? 'home' : 'home';
-                        color = focused ? COLORS.primary : COLORS.grayDark
-                        size = focused ? 30 : 30
-                    } else if (route.name === 'CameraPage') {
-                        iconName = focused ? 'camera' : 'camera';
-                        color = focused ? COLORS.primary : COLORS.grayDark
-                        size = focused ? 25 : 25
-                    }
-                    return <FontAwesome name={iconName} size={size} color={color} />;
-                },
+                "tabBarShowLabel": false,
+                tabBarStyle: { backgroundColor: '#f0f0f0' },
             })}
-            tabBarOptions={{
-                showLabel: false,
-            }}
-
         >
             <Tab.Screen
                 name="HomePage"
                 component={HomePage}
-                options={({ navigation }) => ({
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={
+                                focused
+                                    ? require('../assets/images/insert-picture-icon.png')
+                                    : require('../assets/images/insert-picture-icon.png')
+                            }
+                            style={{ width: 35, height: 35 }}
+                        />
+                    ),
                     headerShown: false,
-                })}
+                }}
             />
             <Tab.Screen
-                name="CameraPage"
-                component={CameraPage}
-                options={({ navigation }) => ({
+                name="CameraImageNavigation"
+                component={CameraImageNavigation}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={
+                                focused
+                                    ? require('../assets/images/camera-button.png')
+                                    : require('../assets/images/camera-button.png')
+                            }
+                            style={{ width: 35, height: 35 }}
+                        />
+                    ),
                     headerShown: false,
-                })}
+                }}
             />
         </Tab.Navigator>
-  )
+    )
 }
+
+const styles = StyleSheet.create({
+    
+
+
+})
 
 export default AppNavigation

@@ -5,6 +5,14 @@
       "bundler": "metro"
     },
     "name": "FrontEnd",
-    "slug": "FrontEnd"
+    "slug": "FrontEnd",
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ]
+    ]
   }
 }
