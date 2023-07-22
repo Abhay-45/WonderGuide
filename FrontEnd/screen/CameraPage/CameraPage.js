@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ImgToBase64 from 'react-native-image-base64';
+import styles from './styles';
 
 const CameraPage = ({ navigation }) => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -20,11 +21,11 @@ const CameraPage = ({ navigation }) => {
   const getPermissionAsync = async () => {
     MediaLibrary.requestPermissionsAsync();
     // Camera roll Permission
-    const cameraStatus  = await Camera.requestCameraPermissionsAsync();
-    if(cameraStatus.status === 'granted'){
+    const cameraStatus = await Camera.requestCameraPermissionsAsync();
+    if (cameraStatus.status === 'granted') {
       setHasCameraPermission(cameraStatus.status === 'granted');
     }
-    else{
+    else {
       alert('Sorry, we need camera roll permissions to make this work!');
     }
 
@@ -42,10 +43,12 @@ const CameraPage = ({ navigation }) => {
     if (cameraRef.current) {
       const options = { base64: true };
       const photo = await cameraRef.current.takePictureAsync(options);
+      console.log(photo.uri);
+      console.log(photo.base64)
       setPhoto(photo.uri);
       navigation.navigate('ConfirmImageNavigator', {
-        // photoUrl: photo.uri,
-        // base64: photo.base64,
+        photoUrl: photo.uri,
+        base64: photo.base64,
       });
     }
   };
@@ -65,7 +68,7 @@ const CameraPage = ({ navigation }) => {
   //  else if (photo !== '') {
   //   return <Text>No Photo</Text>;
   // }
-   else {
+  else {
     return (
       <View style={{ flex: 1 }}>
         <Camera
@@ -88,32 +91,22 @@ const CameraPage = ({ navigation }) => {
             />
           </TouchableOpacity> */}
           <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              marginBottom: 30,
-              
-            }}
+            style={styles.buttonContainer}
           >
             <TouchableOpacity
               style={{
                 alignSelf: 'flex-end',
                 alignItems: 'center',
+
               }}
               onPress={() => takePicture()}
             >
-              <View
-                style={{
-                  backgroundColor: 'white',
-                  width: 90,
-                  height: 90,
-                  borderRadius: 45,
-                  borderWidth: 10,
-                  borderColor: 'silver',
-                }}
+              <Image
+                source={require('../../assets/images/insert-picture-icon.png')}
+                style={styles.fileImage}
               />
             </TouchableOpacity>
+
             <TouchableOpacity
               style={{
                 alignSelf: 'flex-end',
@@ -122,14 +115,7 @@ const CameraPage = ({ navigation }) => {
               onPress={() => takePicture()}
             >
               <View
-                style={{
-                  backgroundColor: 'white',
-                  width: 90,
-                  height: 90,
-                  borderRadius: 45,
-                  borderWidth: 10,
-                  borderColor: 'silver',
-                }}
+                style={styles.cameraButton}
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -137,17 +123,11 @@ const CameraPage = ({ navigation }) => {
                 alignSelf: 'flex-end',
                 alignItems: 'center',
               }}
-              onPress={() => takePicture()}
+              onPress={() => handleCameraType()}
             >
-              <View
-                style={{
-                  backgroundColor: 'white',
-                  width: 90,
-                  height: 90,
-                  borderRadius: 45,
-                  borderWidth: 10,
-                  borderColor: 'silver',
-                }}
+              <Image
+                source={require('../../assets/images/camera-flip.png')}
+                style={styles.fileImage}
               />
             </TouchableOpacity>
           </View>

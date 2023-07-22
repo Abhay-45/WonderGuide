@@ -26,8 +26,8 @@ const AppNavigation = () => {
                         <Image
                             source={
                                 focused
-                                    ? require('../assets/images/insert-picture-icon.png')
-                                    : require('../assets/images/insert-picture-icon.png')
+                                    ? require('../assets/images/home.png')
+                                    : require('../assets/images/home.png')
                             }
                             style={{ width: 35, height: 35 }}
                         />
