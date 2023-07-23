@@ -5,9 +5,27 @@ import styles from './style'
 const ConfirmImage = ({ route, navigation }) => {
   const { photoUrl, base64 } = route.params
 
-  React.useEffect(() => {
-    console.log("ImageUrl : ", photoUrl)
-  }, [])
+  const getResults = () => {
+    console.log("This is base64 type:   ", base64)
+    fetch('http://127.0.0.1:5000/getResults',{
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        base_64 : base64.substr(21)
+      })
+    })
+    .then((response) => response.json())
+    .then((Result) =>{
+      console.log(Result)
+    })
+  }
+
+  // React.useEffect(() => {
+  //   console.log("ImageUrl : ", photoUrl)
+  // }, [])
 
   return (
     <View style={styles.container}>
@@ -21,10 +39,7 @@ const ConfirmImage = ({ route, navigation }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.buttonConfirm}
-            onPress={() => navigation.navigate('ConfirmImageNavigator', {
-              photoUrl: photoUrl,
-              base64: base64,
-            })}
+            onPress={() => getResults()}
           >
             <Text style={styles.buttonText}>Confirm</Text>
           </TouchableOpacity>
