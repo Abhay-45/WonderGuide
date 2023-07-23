@@ -6,9 +6,12 @@ import bcrypt
 from google.cloud import vision
 import io
 import base64
+import wikipedia
 
 app = Flask(__name__)
 CORS(app)
+
+cred_path = "Credentials/google-cloud-vision-api.json"
 
 dbClient = MongoClient('mongodb+srv://abhay452002:AbhayDev45@userdata.o3rpjed.mongodb.net/?retryWrites=true&w=majority')
 
@@ -33,8 +36,6 @@ def login(email, password):
         else:
             return {"status":"failed"}
         
-cred_path = "Credentials/google-cloud-vision-api.json"
-
 def detect_landmark(file):
     client = vision.ImageAnnotatorClient.from_service_account_json(cred_path)
     content = base64.b64decode(file)
@@ -47,6 +48,16 @@ def detect_landmark(file):
     longitude = response[0].locations[0].lat_lng.longitude
 
     return title, latitude, longitude
+
+
+def get_information(title):
+    wiki_title = wikipedia.search(title)[0]
+    summary = wikipedia.summary(wiki_title)
+    wiki_url = wikipedia.page(title).url
+    image_link = wikipedia.page(wiki_title).images[0]
+
+    return wiki_title, summary, wiki_url, image_link
+
 
 @app.route('/register', methods=["GET", "POST"])
 def register_endpoint():
@@ -64,13 +75,18 @@ def login_endpoint():
 def results_endpoint():
     data = request.get_json()
     title, latitude, longitude = detect_landmark(data['base_64'])
+    wiki_title, summary, wiki_url, image_link = get_information(title)
+
     return {
         "status":"success",
         "title": title,
         "latitude": latitude,
-        "longitude": longitude
+        "longitude": longitude,
+        "wiki_title": wiki_title,
+        "summary": summary,
+        "wiki_url": wiki_url,
+        "image_link": image_link
     }
-
 
 
 
