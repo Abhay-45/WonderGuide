@@ -5,22 +5,34 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: COLORS.white,
         alignItems: "center",
+        // justifyContent: "center",
+    },  
+
+    imgContainer : {
+        flex:1,
+        width: "100%",
+        height: "100%",
+        alignItems: "center", 
         justifyContent: "center",
+        // backgroundColor: COLORS.grayLight
     },
 
     image : {
         resizeMode: 'contain',
-        flex: 1,
+        display: "flex",
+        // flex: 1,
         justifyContent: "center",
         alignItems: 'center',
-        marginTop: SIZES.small,
-        height: "90%",
-        width: "95%",
-        margin: 0
+        // marginTop: SIZES.small,
+        height: "450px",
+        width: "300px",
+        // margin: 0
     },
 
     buttonContainer : {
         // backgroundColor: COLORS.grayDark,
+        alignItems: "center",
+        justifyContent: "center",
         width: "95%",
         height: 200,
         alignItems: "center",
@@ -48,7 +60,7 @@ const styles = StyleSheet.create({
     buttonText : {
         color: COLORS.white,
         fontSize: SIZES.medium,
-        fontWeight: "semi-bold"
+        fontWeight: "500"
     }
 
 })
