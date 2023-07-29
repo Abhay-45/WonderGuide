@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import CameraPage from '../screen/CameraPage/CameraPage';
 import ConfirmImage from '../screen/ConfirmImage/ConfirmImage';
 import ImageScreen from '../screen/ImageScreen/ImageScreen';
+import ConfirmGallaryImage from '../screen/ConfirmGallaryImage/ConfirmGallaryImage';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,11 @@ const CameraImageNavigation = () => {
         <Stack.Screen
         name="ConfirmImageNavigator"
         component={ConfirmImage}
+        options={{ headerShown: false }}
+        />
+         <Stack.Screen
+        name="ConfirmGallaryImageNavigator"
+        component={ConfirmGallaryImage}
         options={{ headerShown: false }}
         />
         <Stack.Screen

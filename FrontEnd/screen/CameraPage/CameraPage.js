@@ -4,7 +4,6 @@ import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ImgToBase64 from 'react-native-image-base64';
 import styles from './styles';
 
@@ -54,10 +53,20 @@ const CameraPage = ({ navigation }) => {
   };
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const options = { base64: true };
+    let result = await ImagePicker.launchImageLibraryAsync(options, {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
     });
+
     console.log(result);
+    // console.log(result)
+    console.log(result.assets[0].base64)
+    if (result.uri) {
+      navigation.navigate("ConfirmGallaryImageNavigator", {
+        photoUrl: result.assets[0].uri,
+        base64: result.assets[0].base64,
+      });
+    }
   };
 
   if (hasCameraPermission === null) {
@@ -76,20 +85,6 @@ const CameraPage = ({ navigation }) => {
           type={cameraType}
           ref={cameraRef}
         >
-          {/* <TouchableOpacity
-            onPress={() => navigation.navigate('ImageScreenNavigator')}
-          >
-            <MaterialCommunityIcons
-              style={{
-                top: 55,
-                left: 330,
-                opacity: 1,
-              }}
-              name="close-circle"
-              color={'white'}
-              size={70}
-            />
-          </TouchableOpacity> */}
           <View
             style={styles.buttonContainer}
           >
@@ -99,7 +94,7 @@ const CameraPage = ({ navigation }) => {
                 alignItems: 'center',
 
               }}
-              onPress={() => takePicture()}
+              onPress={() => pickImage()}
             >
               <Image
                 source={require('../../assets/images/insert-picture-icon.png')}
