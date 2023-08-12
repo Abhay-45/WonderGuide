@@ -10,12 +10,15 @@ import React from 'react';
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigation = () => {
+const AppNavigation = (navigation) => {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 "tabBarShowLabel": false,
-                tabBarStyle: { backgroundColor: '#f0f0f0' },
+                tabBarStyle: {
+                    backgroundColor: COLORS.primary,
+                    height: 60
+                },
             })}
         >
             <Tab.Screen
@@ -57,7 +60,7 @@ const AppNavigation = () => {
 }
 
 const styles = StyleSheet.create({
-    
+
 
 
 })
